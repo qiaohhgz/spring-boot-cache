@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.itunion.demo.repository.HelpCategoryDao" >
+
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.itunion.demo.domain.vo.HelpCategoryVo" >
+		<result column="help_category_id" property="helpCategoryId"/>
+		<result column="name" property="name"/>
+		<result column="parent_category_id" property="parentCategoryId"/>
+		<result column="url" property="url"/>
+	</resultMap>
+	       
+	<!-- help_category table all fields -->
+	<sql id="Base_Column_List" >
+			help_category.help_category_id ,
+			help_category.name ,
+			help_category.parent_category_id ,
+			help_category.url 
+	</sql>
+	   
+	<sql id="Base_Where_Clause">
+	  <where> 
+		<trim prefixOverrides="and">
+			    <if test="helpCategoryId != null" > and help_category.help_category_id =  #{helpCategoryId}</if>
+			    <if test="name != null and name != ''" > and help_category.name =  #{name}</if>
+			    <if test="parentCategoryId != null" > and help_category.parent_category_id =  #{parentCategoryId}</if>
+			    <if test="url != null and url != ''" > and help_category.url =  #{url}</if>
+		</trim>
+	  </where>
+	</sql>
+   
+	<!-- 查询 -->
+	<select id="selectList" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from help_category 
+		<include refid="Base_Where_Clause" />
+	</select>
+
+    <!-- 查询第一个 -->
+    <select id="selectFirst" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List" />
+        from help_category
+        <include refid="Base_Where_Clause" />
+		limit 1
+    </select>
+
+    <!-- 求总数 -->
+    <select id="countByForm" resultType="int" parameterType="java.util.Map">
+        select count(*)
+        from help_category
+        <include refid="Base_Where_Clause" />
+    </select>
+	
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="Integer">
+		select
+		<include refid="Base_Column_List" />
+		from help_category 
+		where help_category_id = #{helpCategoryId,jdbcType=NUMERIC}
+	</select>
+	
+	<!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="Integer">
+		delete from help_category 
+		where help_category_id = #{helpCategoryId,jdbcType=NUMERIC}
+	</delete>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from help_category 
+		<include refid="Base_Where_Clause" />
+	</delete>
+	
+	<delete id="deleteByIdInBatch" parameterType="java.util.List">
+		delete from help_category 
+		where help_category_id in
+			<foreach item="item" collection="list" open="(" separator="," close=")">
+			#{item,jdbcType=NUMERIC}
+		</foreach>
+	</delete>
+
+	<!-- 添加 -->	
+	<insert id="insert" parameterType="com.itunion.demo.domain.HelpCategory" useGeneratedKeys="true" keyColumn="help_category_id" keyProperty="helpCategoryId">
+		insert into help_category (help_category_id, name, parent_category_id, url)
+ 		values (#{helpCategoryId}, #{name}, #{parentCategoryId}, #{url})
+	</insert>
+	
+	<!-- 批量添加 -->
+	<insert id="insertInBatch" parameterType="java.util.List">
+		insert into help_category(help_category_id, name, parent_category_id, url)
+		 values
+		 <foreach collection="list" item="item" index="index" separator="," > 
+			(#{item.helpCategoryId}, #{item.name}, #{item.parentCategoryId}, #{item.url})
+		 </foreach> 
+	</insert>
+	
+	<!-- 通过ID更新 -->
+	<update id="updateByIdSelective" parameterType="com.itunion.demo.domain.HelpCategory">
+		update help_category
+		<set>
+			    <if test="helpCategoryId != null" > help_category_id =  #{helpCategoryId}, </if>
+			    <if test="name != null and name != ''" > name =  #{name}, </if>
+			    <if test="parentCategoryId != null" > parent_category_id =  #{parentCategoryId}, </if>
+			    <if test="url != null and url != ''" > url =  #{url} </if>
+		</set>
+		where help_category_id =#{helpCategoryId,jdbcType=NUMERIC}
+	</update>
+	
+	<update id="updateById" parameterType="com.itunion.demo.domain.HelpCategory">
+		update help_category 
+			<set> 
+			    <if test="helpCategoryId != null" > help_category_id =  #{helpCategoryId}, </if>
+			    <if test="name != null and name != ''" > name =  #{name}, </if>
+			    <if test="parentCategoryId != null" > parent_category_id =  #{parentCategoryId}, </if>
+			    <if test="url != null and url != ''" > url =  #{url} </if>
+			</set>
+		where help_category_id = #{helpCategoryId,jdbcType=NUMERIC}
+	</update>
+
+</mapper>   

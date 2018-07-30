@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.itunion.demo.repository.HelpTopicDao" >
+
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.itunion.demo.domain.vo.HelpTopicVo" >
+		<result column="help_topic_id" property="helpTopicId"/>
+		<result column="name" property="name"/>
+		<result column="help_category_id" property="helpCategoryId"/>
+		<result column="description" property="description"/>
+		<result column="example" property="example"/>
+		<result column="url" property="url"/>
+	</resultMap>
+	       
+	<!-- help_topic table all fields -->
+	<sql id="Base_Column_List" >
+			help_topic.help_topic_id ,
+			help_topic.name ,
+			help_topic.help_category_id ,
+			help_topic.description ,
+			help_topic.example ,
+			help_topic.url 
+	</sql>
+	   
+	<sql id="Base_Where_Clause">
+	  <where> 
+		<trim prefixOverrides="and">
+			    <if test="helpTopicId != null" > and help_topic.help_topic_id =  #{helpTopicId}</if>
+			    <if test="name != null and name != ''" > and help_topic.name =  #{name}</if>
+			    <if test="helpCategoryId != null" > and help_topic.help_category_id =  #{helpCategoryId}</if>
+			    <if test="description != null" > and help_topic.description =  #{description}</if>
+			    <if test="example != null" > and help_topic.example =  #{example}</if>
+			    <if test="url != null and url != ''" > and help_topic.url =  #{url}</if>
+		</trim>
+	  </where>
+	</sql>
+   
+	<!-- 查询 -->
+	<select id="selectList" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from help_topic 
+		<include refid="Base_Where_Clause" />
+	</select>
+
+    <!-- 查询第一个 -->
+    <select id="selectFirst" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List" />
+        from help_topic
+        <include refid="Base_Where_Clause" />
+		limit 1
+    </select>
+
+    <!-- 求总数 -->
+    <select id="countByForm" resultType="int" parameterType="java.util.Map">
+        select count(*)
+        from help_topic
+        <include refid="Base_Where_Clause" />
+    </select>
+	
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="Integer">
+		select
+		<include refid="Base_Column_List" />
+		from help_topic 
+		where help_topic_id = #{helpTopicId,jdbcType=NUMERIC}
+	</select>
+	
+	<!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="Integer">
+		delete from help_topic 
+		where help_topic_id = #{helpTopicId,jdbcType=NUMERIC}
+	</delete>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from help_topic 
+		<include refid="Base_Where_Clause" />
+	</delete>
+	
+	<delete id="deleteByIdInBatch" parameterType="java.util.List">
+		delete from help_topic 
+		where help_topic_id in
+			<foreach item="item" collection="list" open="(" separator="," close=")">
+			#{item,jdbcType=NUMERIC}
+		</foreach>
+	</delete>
+
+	<!-- 添加 -->	
+	<insert id="insert" parameterType="com.itunion.demo.domain.HelpTopic" useGeneratedKeys="true" keyColumn="help_topic_id" keyProperty="helpTopicId">
+		insert into help_topic (help_topic_id, name, help_category_id, description, example, url)
+ 		values (#{helpTopicId}, #{name}, #{helpCategoryId}, #{description}, #{example}, #{url})
+	</insert>
+	
+	<!-- 批量添加 -->
+	<insert id="insertInBatch" parameterType="java.util.List">
+		insert into help_topic(help_topic_id, name, help_category_id, description, example, url)
+		 values
+		 <foreach collection="list" item="item" index="index" separator="," > 
+			(#{item.helpTopicId}, #{item.name}, #{item.helpCategoryId}, #{item.description}, #{item.example}, #{item.url})
+		 </foreach> 
+	</insert>
+	
+	<!-- 通过ID更新 -->
+	<update id="updateByIdSelective" parameterType="com.itunion.demo.domain.HelpTopic">
+		update help_topic
+		<set>
+			    <if test="helpTopicId != null" > help_topic_id =  #{helpTopicId}, </if>
+			    <if test="name != null and name != ''" > name =  #{name}, </if>
+			    <if test="helpCategoryId != null" > help_category_id =  #{helpCategoryId}, </if>
+			    <if test="description != null" > description =  #{description}, </if>
+			    <if test="example != null" > example =  #{example}, </if>
+			    <if test="url != null and url != ''" > url =  #{url} </if>
+		</set>
+		where help_topic_id =#{helpTopicId,jdbcType=NUMERIC}
+	</update>
+	
+	<update id="updateById" parameterType="com.itunion.demo.domain.HelpTopic">
+		update help_topic 
+			<set> 
+			    <if test="helpTopicId != null" > help_topic_id =  #{helpTopicId}, </if>
+			    <if test="name != null and name != ''" > name =  #{name}, </if>
+			    <if test="helpCategoryId != null" > help_category_id =  #{helpCategoryId}, </if>
+			    <if test="description != null" > description =  #{description}, </if>
+			    <if test="example != null" > example =  #{example}, </if>
+			    <if test="url != null and url != ''" > url =  #{url} </if>
+			</set>
+		where help_topic_id = #{helpTopicId,jdbcType=NUMERIC}
+	</update>
+
+</mapper>   
