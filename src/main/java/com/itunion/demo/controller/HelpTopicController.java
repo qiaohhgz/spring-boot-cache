@@ -6,6 +6,7 @@ import com.itunion.demo.service.HelpTopicService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,10 +22,11 @@ public class HelpTopicController {
     @Autowired
     private HelpTopicService helpTopicService;
 
+    @Cacheable(key = "'dataGrid'", value = "HelpTopicController")
     @RequestMapping("/dataGrid")
-    public Object dataGrid() {
+    public Object dataGrid(HelpTopicForm form) {
         long s = System.currentTimeMillis();
-        List<HelpTopicVo> list = helpTopicService.selectList(new HelpTopicForm());
+        List<HelpTopicVo> list = helpTopicService.selectList(form);
         log.info("query use time " + (System.currentTimeMillis() - s) + " ms");
         return list;
     }

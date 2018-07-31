@@ -1,5 +1,6 @@
 package com.itunion.demo.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.itunion.demo.domain.HelpTopic;
 import com.itunion.demo.domain.form.HelpTopicForm;
 import com.itunion.demo.domain.vo.HelpTopicVo;
@@ -25,6 +26,7 @@ public class HelpTopicServiceImpl implements HelpTopicService {
     private HelpCategoryService helpCategoryService;
 
     public List<HelpTopicVo> selectList(HelpTopicForm form) {
+        PageHelper.startPage(form);
         List<HelpTopicVo> list = helpTopicDao.selectList(form);
         for (HelpTopicVo topic : list) {
             if (topic.getHelpCategoryId() != null) {
