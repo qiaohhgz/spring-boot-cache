@@ -8,6 +8,7 @@ import com.itunion.demo.service.HelpCategoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -26,17 +27,13 @@ public class HelpCategoryServiceImpl implements HelpCategoryService {
         return helpCategoryDao.selectList(form);
     }
 
-    public HelpCategoryVo selectFirst(HelpCategoryForm form) {
-        return helpCategoryDao.selectFirst(form);
-    }
-
     public int countByForm(HelpCategoryForm form) {
         return helpCategoryDao.countByForm(form);
     }
 
     @Cacheable(key = "#id", value = "help_category")
     public HelpCategoryVo selectById(Serializable id) {
-        log.info("HelpCategory.selectById from DB " + id);
+        log.info("query category from DB " + id);
         return helpCategoryDao.selectById(id);
     }
 
@@ -44,27 +41,14 @@ public class HelpCategoryServiceImpl implements HelpCategoryService {
         helpCategoryDao.insert(entity);
     }
 
-    public int delete(HelpCategory query) {
-        return helpCategoryDao.delete(query);
-    }
-
+    @CacheEvict(key = "#id", value = "help_category")
     public int deleteById(Serializable id) {
         return helpCategoryDao.deleteById(id);
     }
 
+    @CacheEvict(key = "#entity.helpCategoryId", value = "help_category")
     public int updateById(HelpCategory entity) {
         return helpCategoryDao.updateById(entity);
     }
 
-    public int updateByIdSelective(HelpCategory entity) {
-        return helpCategoryDao.updateByIdSelective(entity);
-    }
-
-    public void deleteByIdInBatch(List<Serializable> idList) {
-        helpCategoryDao.deleteByIdInBatch(idList);
-    }
-
-    public void insertInBatch(List<HelpCategory> entityList) {
-        helpCategoryDao.insertInBatch(entityList);
-    }
 }

@@ -47,4 +47,16 @@ public class HelpTopic implements Serializable{
     public void setUrl(String url){
 	    this.url = url;
     }
+
+    @Override
+    public String toString() {
+        return "HelpTopic{" +
+                "helpTopicId=" + helpTopicId +
+                ", name='" + name + '\'' +
+                ", helpCategoryId=" + helpCategoryId +
+                ", description=" + description +
+                ", example=" + example +
+                ", url='" + url + '\'' +
+                '}';
+    }
 }

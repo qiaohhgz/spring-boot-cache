@@ -30,4 +30,13 @@ public class HelpTopicForm extends HelpTopic {
     public void setOrderBy(String orderBy) {
         this.orderBy = orderBy;
     }
+
+    @Override
+    public String toString() {
+        return "HelpTopicForm{" +
+                "pageNum=" + pageNum +
+                ", pageSize=" + pageSize +
+                ", orderBy='" + orderBy + '\'' +
+                "} " + super.toString();
+    }
 }

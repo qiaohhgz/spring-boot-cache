@@ -22,7 +22,7 @@ public class HelpTopicController {
     @Autowired
     private HelpTopicService helpTopicService;
 
-    @Cacheable(key = "'dataGrid'", value = "HelpTopicController")
+    @Cacheable(key = "'dataGrid' + #form.toString()", value = "HelpTopicController", sync = true)
     @RequestMapping("/dataGrid")
     public Object dataGrid(HelpTopicForm form) {
         long s = System.currentTimeMillis();

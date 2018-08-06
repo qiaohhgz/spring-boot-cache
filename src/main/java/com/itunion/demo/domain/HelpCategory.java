@@ -33,4 +33,14 @@ public class HelpCategory implements Serializable{
     public void setUrl(String url){
 	    this.url = url;
     }
+
+    @Override
+    public String toString() {
+        return "HelpCategory{" +
+                "helpCategoryId=" + helpCategoryId +
+                ", name='" + name + '\'' +
+                ", parentCategoryId=" + parentCategoryId +
+                ", url='" + url + '\'' +
+                '}';
+    }
 }

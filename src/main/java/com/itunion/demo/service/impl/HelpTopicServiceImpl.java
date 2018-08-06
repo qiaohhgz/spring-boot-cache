@@ -26,6 +26,7 @@ public class HelpTopicServiceImpl implements HelpTopicService {
     private HelpCategoryService helpCategoryService;
 
     public List<HelpTopicVo> selectList(HelpTopicForm form) {
+        log.info("query topic list " + form.toString());
         PageHelper.startPage(form);
         List<HelpTopicVo> list = helpTopicDao.selectList(form);
         for (HelpTopicVo topic : list) {
@@ -36,24 +37,21 @@ public class HelpTopicServiceImpl implements HelpTopicService {
         return list;
     }
 
-    public HelpTopicVo selectFirst(HelpTopicForm form) {
-        return helpTopicDao.selectFirst(form);
-    }
-
     public int countByForm(HelpTopicForm form) {
         return helpTopicDao.countByForm(form);
     }
 
     public HelpTopicVo selectById(Serializable id) {
-        return helpTopicDao.selectById(id);
+        log.info("query topic by id " + id);
+        HelpTopicVo topic = helpTopicDao.selectById(id);
+        if (topic.getHelpCategoryId() != null) {
+            topic.setCategory(helpCategoryService.selectById(topic.getHelpCategoryId()));
+        }
+        return topic;
     }
 
     public void insert(HelpTopic entity) {
         helpTopicDao.insert(entity);
-    }
-
-    public int delete(HelpTopic query) {
-        return helpTopicDao.delete(query);
     }
 
     public int deleteById(Serializable id) {
@@ -62,17 +60,5 @@ public class HelpTopicServiceImpl implements HelpTopicService {
 
     public int updateById(HelpTopic entity) {
         return helpTopicDao.updateById(entity);
-    }
-
-    public int updateByIdSelective(HelpTopic entity) {
-        return helpTopicDao.updateByIdSelective(entity);
-    }
-
-    public void deleteByIdInBatch(List<Serializable> idList) {
-        helpTopicDao.deleteByIdInBatch(idList);
-    }
-
-    public void insertInBatch(List<HelpTopic> entityList) {
-        helpTopicDao.insertInBatch(entityList);
     }
 }
