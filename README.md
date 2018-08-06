@@ -478,7 +478,7 @@ Spring boot 提供了 CacheManager 用来管理所有的缓存
 
 > 一般情况下这样就够了，但是实际项目当中还要根据不同的项目架构，以及不同的业务场景来决定该用什么样解决方案
 
-####更多精彩内容
+#### 更多精彩内容
 * [架构实战篇（一）：Spring Boot 整合MyBatis](https://www.jianshu.com/p/5f76bc4bb7cf)
 * [架构实战篇（二）：Spring Boot 整合Swagger2](https://www.jianshu.com/p/57a4381a2b45)
 * [架构实战篇（三）：Spring Boot 整合MyBatis(二)](https://www.jianshu.com/p/b0668bf8cf60)
