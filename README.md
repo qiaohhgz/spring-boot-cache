@@ -479,16 +479,16 @@ Spring boot 提供了 CacheManager 用来管理所有的缓存
 > 一般情况下这样就够了，但是实际项目当中还要根据不同的项目架构，以及不同的业务场景来决定该用什么样解决方案
 
 ####更多精彩内容
-[架构实战篇（一）：Spring Boot 整合MyBatis](https://www.jianshu.com/p/5f76bc4bb7cf)
-[架构实战篇（二）：Spring Boot 整合Swagger2](https://www.jianshu.com/p/57a4381a2b45)
-[架构实战篇（三）：Spring Boot 整合MyBatis(二)](https://www.jianshu.com/p/b0668bf8cf60)
-[架构实战篇（四）：Spring Boot 整合 Thymeleaf](https://www.jianshu.com/p/b5a854c0e829)
-[架构实战篇（五）：Spring Boot 表单验证和异常处理](https://www.jianshu.com/p/5152c065d3cb)
-[架构实战篇（六）：Spring Boot RestTemplate的使用](https://www.jianshu.com/p/c96049624891)
-[架构实战篇（七）：Spring Boot Data JPA 快速入门](https://www.jianshu.com/p/9beec5b84a38)
-[架构实战篇（八）：Spring Boot 集成 Druid 数据源监控](https://www.jianshu.com/p/da2b1a069a2b)
-[架构实战篇（九）：Spring Boot 分布式Session共享Redis](https://www.jianshu.com/p/44130d6754c3)
-[架构实战篇（十三）：Spring Boot Logback 邮件通知](https://www.jianshu.com/p/9b3a3f3a7e87)
+* [架构实战篇（一）：Spring Boot 整合MyBatis](https://www.jianshu.com/p/5f76bc4bb7cf)
+* [架构实战篇（二）：Spring Boot 整合Swagger2](https://www.jianshu.com/p/57a4381a2b45)
+* [架构实战篇（三）：Spring Boot 整合MyBatis(二)](https://www.jianshu.com/p/b0668bf8cf60)
+* [架构实战篇（四）：Spring Boot 整合 Thymeleaf](https://www.jianshu.com/p/b5a854c0e829)
+* [架构实战篇（五）：Spring Boot 表单验证和异常处理](https://www.jianshu.com/p/5152c065d3cb)
+* [架构实战篇（六）：Spring Boot RestTemplate的使用](https://www.jianshu.com/p/c96049624891)
+* [架构实战篇（七）：Spring Boot Data JPA 快速入门](https://www.jianshu.com/p/9beec5b84a38)
+* [架构实战篇（八）：Spring Boot 集成 Druid 数据源监控](https://www.jianshu.com/p/da2b1a069a2b)
+* [架构实战篇（九）：Spring Boot 分布式Session共享Redis](https://www.jianshu.com/p/44130d6754c3)
+* [架构实战篇（十三）：Spring Boot Logback 邮件通知](https://www.jianshu.com/p/9b3a3f3a7e87)
 
 #### 关注我们
 
