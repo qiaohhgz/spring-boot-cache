@@ -25,6 +25,7 @@ public class HelpTopicServiceImpl implements HelpTopicService {
     @Autowired
     private HelpCategoryService helpCategoryService;
 
+    @Override
     public List<HelpTopicVo> selectList(HelpTopicForm form) {
         log.info("query topic list " + form.toString());
         PageHelper.startPage(form);
@@ -37,10 +38,12 @@ public class HelpTopicServiceImpl implements HelpTopicService {
         return list;
     }
 
+    @Override
     public int countByForm(HelpTopicForm form) {
         return helpTopicDao.countByForm(form);
     }
 
+    @Override
     public HelpTopicVo selectById(Serializable id) {
         log.info("query topic by id " + id);
         HelpTopicVo topic = helpTopicDao.selectById(id);
@@ -50,14 +53,17 @@ public class HelpTopicServiceImpl implements HelpTopicService {
         return topic;
     }
 
+    @Override
     public void insert(HelpTopic entity) {
         helpTopicDao.insert(entity);
     }
 
+    @Override
     public int deleteById(Serializable id) {
         return helpTopicDao.deleteById(id);
     }
 
+    @Override
     public int updateById(HelpTopic entity) {
         return helpTopicDao.updateById(entity);
     }

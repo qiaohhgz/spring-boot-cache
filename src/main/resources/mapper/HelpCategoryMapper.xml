@@ -25,7 +25,7 @@
 	  <where> 
 		<trim prefixOverrides="and">
 			    <if test="helpCategoryId != null" > and help_category.help_category_id =  #{helpCategoryId}</if>
-			    <if test="name != null and name != ''" > and help_category.name =  #{name}</if>
+			    <if test="name != null and name != ''" > and help_category.name like concat('%', #{name}, '%')</if>
 			    <if test="parentCategoryId != null" > and help_category.parent_category_id =  #{parentCategoryId}</if>
 			    <if test="url != null and url != ''" > and help_category.url =  #{url}</if>
 		</trim>

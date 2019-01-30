@@ -1,11 +1,13 @@
 package com.itunion.demo.controller;
 
+import com.itunion.demo.cache.CacheService;
 import com.itunion.demo.domain.form.HelpCategoryForm;
 import com.itunion.demo.domain.vo.HelpCategoryVo;
 import com.itunion.demo.service.HelpCategoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@CacheConfig(keyGenerator = "md5KeyGenerator", cacheNames = "HelpCategoryController")
 @RestController
 @RequestMapping("/helpCategory")
 public class HelpCategoryController {
@@ -22,7 +25,7 @@ public class HelpCategoryController {
     @Autowired
     private HelpCategoryService helpCategoryService;
 
-    @Cacheable(key = "'dataGrid' + #form.toString()", value = "HelpCategoryController", sync = true)
+//    @Cacheable
     @RequestMapping("/dataGrid")
     public Object dataGrid(HelpCategoryForm form) {
         long s = System.currentTimeMillis();
@@ -31,6 +34,7 @@ public class HelpCategoryController {
         return list;
     }
 
+    @Cacheable
     @RequestMapping("/{id}")
     public Object getById(@PathVariable("id") Integer id) {
         long s = System.currentTimeMillis();

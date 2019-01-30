@@ -6,6 +6,7 @@ import com.itunion.demo.service.HelpTopicService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@CacheConfig(keyGenerator = "md5KeyGenerator", cacheNames = "HelpTopicController")
 @RestController
 @RequestMapping("/helpTopic")
 public class HelpTopicController {
@@ -22,7 +24,7 @@ public class HelpTopicController {
     @Autowired
     private HelpTopicService helpTopicService;
 
-    @Cacheable(key = "'dataGrid' + #form.toString()", value = "HelpTopicController", sync = true)
+    @Cacheable
     @RequestMapping("/dataGrid")
     public Object dataGrid(HelpTopicForm form) {
         long s = System.currentTimeMillis();
@@ -31,6 +33,7 @@ public class HelpTopicController {
         return list;
     }
 
+    @Cacheable
     @RequestMapping("/{id}")
     public Object getById(@PathVariable("id") Integer id) {
         return helpTopicService.selectById(id);
