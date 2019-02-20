@@ -27,7 +27,19 @@ public class H2CacheService implements CacheService {
     }
 
     @PostConstruct
-    public void autoDeleteExpireData() {
+    public void init() {
+        // 验证数据库是否存在
+        String createTableSql = "CREATE CACHED TABLE PUBLIC.MAP(\n" +
+                "    KEY TEXT NOT NULL,\n" +
+                "    VALUE TEXT,\n" +
+                "    EXPIRE LONG\n" +
+                ")";
+        List<Map<String, Object>> list = h2JdbcTemplate.queryForList("SELECT t.TABLE_NAME FROM INFORMATION_SCHEMA.TABLES t WHERE TABLE_SCHEMA = 'PUBLIC' and TABLE_NAME = 'MAP' LIMIT 1");
+        if (list == null || list.isEmpty()) {
+            logger.info("auto create table execute sql > " + createTableSql);
+            h2JdbcTemplate.update(createTableSql);
+        }
+
         Thread thread = new Thread() {
             @Override
             public void run() {
@@ -82,7 +94,7 @@ public class H2CacheService implements CacheService {
         Long expire = (Long) data.get("expire");
         long date = System.currentTimeMillis() / 1000;
         if (expire != null && expire <= date) {
-            logger.info("key {} 已过期", key);
+            logger.info("key {} is expired", key);
             h2JdbcTemplate.update("delete from map where key = ?", key);
             return false;
         }
