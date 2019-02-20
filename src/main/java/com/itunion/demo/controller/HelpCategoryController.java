@@ -1,6 +1,5 @@
 package com.itunion.demo.controller;
 
-import com.itunion.demo.cache.CacheService;
 import com.itunion.demo.domain.form.HelpCategoryForm;
 import com.itunion.demo.domain.vo.HelpCategoryVo;
 import com.itunion.demo.service.HelpCategoryService;
@@ -25,7 +24,6 @@ public class HelpCategoryController {
     @Autowired
     private HelpCategoryService helpCategoryService;
 
-//    @Cacheable
     @RequestMapping("/dataGrid")
     public Object dataGrid(HelpCategoryForm form) {
         long s = System.currentTimeMillis();
